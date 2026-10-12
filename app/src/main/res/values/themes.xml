@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.PlantCare" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.PlantCare" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/plant_primary</item>
+        <item name="colorOnPrimary">@color/plant_on_primary</item>
+    </style>
 </resources>
