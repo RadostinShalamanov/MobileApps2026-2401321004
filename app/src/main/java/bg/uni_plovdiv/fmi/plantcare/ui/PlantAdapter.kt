@@ -10,7 +10,10 @@ import bg.uni_plovdiv.fmi.plantcare.data.Plant
 import bg.uni_plovdiv.fmi.plantcare.databinding.ItemPlantBinding
 import bg.uni_plovdiv.fmi.plantcare.domain.WateringCalculator
 
-class PlantAdapter : ListAdapter<Plant, PlantAdapter.Holder>(DIFF) {
+class PlantAdapter(
+    private val onClick: (Plant) -> Unit,
+    private val onWater: (Plant) -> Unit
+) : ListAdapter<Plant, PlantAdapter.Holder>(DIFF) {
 
     class Holder(val binding: ItemPlantBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -33,6 +36,9 @@ class PlantAdapter : ListAdapter<Plant, PlantAdapter.Holder>(DIFF) {
             days < 0 -> ctx.getString(R.string.status_overdue, -days)
             else -> ctx.getString(R.string.status_in, days)
         }
+
+        b.root.setOnClickListener { onClick(plant) }
+        b.btnWater.setOnClickListener { onWater(plant) }
     }
 
     companion object {

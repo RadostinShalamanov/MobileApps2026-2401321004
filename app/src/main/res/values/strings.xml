@@ -13,4 +13,9 @@
     <string name="error_name">Въведи име</string>
     <string name="error_interval">Въведи число между 1 и 365</string>
     <string name="unknown_species">без посочен вид</string>
+
+    <string name="water_now">Полей</string>
+    <string name="deleted">Растението е изтрито</string>
+    <string name="undo">Отмени</string>
+    <string name="watered">Поляно: %1$s</string>
 </resources>

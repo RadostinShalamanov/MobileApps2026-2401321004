@@ -15,5 +15,10 @@
     <fragment
         android:id="@+id/plantEditFragment"
         android:name="bg.uni_plovdiv.fmi.plantcare.ui.PlantEditFragment"
-        android:label="@string/edit_title" />
+        android:label="@string/edit_title">
+        <argument
+            android:name="plantId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
 </navigation>

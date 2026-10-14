@@ -20,6 +20,18 @@ class PlantEditFragment : Fragment(R.layout.fragment_plant_edit) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentPlantEditBinding.bind(view)
 
+        val plantId = arguments?.getLong("plantId") ?: 0L
+        viewModel.load(plantId)
+
+        viewModel.plant.observe(viewLifecycleOwner) { plant ->
+            if (plant != null && !viewModel.formPopulated) {
+                viewModel.formPopulated = true
+                binding.etName.setText(plant.name)
+                binding.etSpecies.setText(plant.species)
+                binding.etInterval.setText(plant.intervalDays.toString())
+            }
+        }
+
         viewModel.saved.observe(viewLifecycleOwner) { saved ->
             if (saved) findNavController().popBackStack()
         }

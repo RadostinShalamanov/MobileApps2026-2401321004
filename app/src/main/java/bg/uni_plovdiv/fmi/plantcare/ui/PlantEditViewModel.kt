@@ -16,19 +16,44 @@ class PlantEditViewModel @Inject constructor(
     private val repository: PlantRepository
 ) : ViewModel() {
 
+    private val _plant = MutableLiveData<Plant?>()
+    val plant: LiveData<Plant?> = _plant
+
     private val _saved = MutableLiveData(false)
     val saved: LiveData<Boolean> = _saved
 
+    /** Попълнена ли е формата от базата (за да не се презаписва при завъртане). */
+    var formPopulated = false
+
+    private var loaded = false
+
+    fun load(id: Long) {
+        if (loaded || id == 0L) return
+        loaded = true
+        viewModelScope.launch { _plant.value = repository.get(id) }
+    }
+
     fun save(name: String, species: String, intervalDays: Int) {
+        val existing = _plant.value
         viewModelScope.launch {
-            repository.add(
-                Plant(
-                    name = name.trim(),
-                    species = species.trim(),
-                    lastWateredDay = WateringCalculator.todayEpochDay(),
-                    intervalDays = intervalDays
+            if (existing == null) {
+                repository.add(
+                    Plant(
+                        name = name.trim(),
+                        species = species.trim(),
+                        lastWateredDay = WateringCalculator.todayEpochDay(),
+                        intervalDays = intervalDays
+                    )
                 )
-            )
+            } else {
+                repository.update(
+                    existing.copy(
+                        name = name.trim(),
+                        species = species.trim(),
+                        intervalDays = intervalDays
+                    )
+                )
+            }
             _saved.value = true
         }
     }
