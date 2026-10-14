@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">PlantCare</string>
+    <string name="edit_title">Растение</string>
+    <string name="add_plant">Добави растение</string>
+    <string name="empty_list">Още няма растения.\nНатисни + и добави първото си.</string>
+    <string name="status_today">Полей днес!</string>
+    <string name="status_overdue">Закъснява с %1$d дни</string>
+    <string name="status_in">Поливане след %1$d дни</string>
+    <string name="hint_name">Име</string>
+    <string name="hint_species">Вид (по желание)</string>
+    <string name="hint_interval">Поливане на всеки (дни)</string>
+    <string name="save">Запази</string>
+    <string name="error_name">Въведи име</string>
+    <string name="error_interval">Въведи число между 1 и 365</string>
+    <string name="unknown_species">без посочен вид</string>
 </resources>
