@@ -29,7 +29,7 @@ class PlantEditViewModel @Inject constructor(
     /** Пътят на снимката, която камерата в момента записва. */
     var pendingPhotoPath: String? = null
 
-    /** Попълнена ли е формата от базата (за да не се презаписва при завъртане). */
+
     var formPopulated = false
 
     private var loaded = false

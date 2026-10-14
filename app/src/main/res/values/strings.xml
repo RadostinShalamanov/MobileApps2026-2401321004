@@ -21,4 +21,8 @@
 
     <string name="take_photo">Снимай</string>
     <string name="photo_desc">Снимка на растението</string>6
+
+    <string name="share">Сподели</string>
+    <string name="share_text">Моето растение „%1$s“ (%2$s) се полива на всеки %3$d дни. 🌱</string>
+    <string name="share_chooser">Сподели чрез</string>
 </resources>

@@ -38,7 +38,7 @@ class PlantListFragment : Fragment(R.layout.fragment_plant_list) {
         binding.rvPlants.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPlants.adapter = adapter
 
-        // Плъзгане настрани = изтриване, със Snackbar за отмяна.
+
         val swipe = object : ItemTouchHelper.SimpleCallback(
             0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
         ) {

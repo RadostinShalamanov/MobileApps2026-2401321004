@@ -1,5 +1,6 @@
 package bg.uni_plovdiv.fmi.plantcare.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,8 +21,7 @@ class PlantEditFragment : Fragment(R.layout.fragment_plant_edit) {
     private val binding get() = _binding!!
     private val viewModel: PlantEditViewModel by viewModels()
 
-    // Camera Intent: системната камера записва снимката във FileProvider URI.
-    // Не е нужно CAMERA разрешение, защото приложението не отваря камерата директно.
+
     private val takePicture =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             viewModel.onPictureResult(success)
@@ -32,6 +32,9 @@ class PlantEditFragment : Fragment(R.layout.fragment_plant_edit) {
 
         val plantId = arguments?.getLong("plantId") ?: 0L
         viewModel.load(plantId)
+
+
+        binding.btnShare.visibility = if (plantId == 0L) View.GONE else View.VISIBLE
 
         viewModel.plant.observe(viewLifecycleOwner) { plant ->
             if (plant != null && !viewModel.formPopulated) {
@@ -54,6 +57,7 @@ class PlantEditFragment : Fragment(R.layout.fragment_plant_edit) {
 
         binding.btnPhoto.setOnClickListener { launchCamera() }
         binding.btnSave.setOnClickListener { save() }
+        binding.btnShare.setOnClickListener { share() }
     }
 
     private fun launchCamera() {
@@ -76,6 +80,23 @@ class PlantEditFragment : Fragment(R.layout.fragment_plant_edit) {
         if (PlantValidation.isValidName(name) && interval != null) {
             viewModel.save(name, binding.etSpecies.text?.toString().orEmpty(), interval)
         }
+    }
+    
+    private fun share() {
+        val interval = PlantValidation.parseInterval(binding.etInterval.text?.toString()) ?: 7
+        val species = binding.etSpecies.text?.toString().orEmpty()
+            .ifBlank { getString(R.string.unknown_species) }
+        val text = getString(
+            R.string.share_text,
+            binding.etName.text?.toString().orEmpty(),
+            species,
+            interval
+        )
+        val send = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, text)
+        }
+        startActivity(Intent.createChooser(send, getString(R.string.share_chooser)))
     }
 
     override fun onDestroyView() {
