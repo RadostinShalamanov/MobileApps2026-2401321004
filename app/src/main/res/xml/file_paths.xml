@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-files-path name="plant_photos" path="Pictures/" />
+    <files-path name="plant_photos_internal" path="." />
+</paths>

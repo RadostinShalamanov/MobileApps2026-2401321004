@@ -9,6 +9,7 @@ import bg.uni_plovdiv.fmi.plantcare.R
 import bg.uni_plovdiv.fmi.plantcare.data.Plant
 import bg.uni_plovdiv.fmi.plantcare.databinding.ItemPlantBinding
 import bg.uni_plovdiv.fmi.plantcare.domain.WateringCalculator
+import bg.uni_plovdiv.fmi.plantcare.util.ImageUtils
 
 class PlantAdapter(
     private val onClick: (Plant) -> Unit,
@@ -36,6 +37,10 @@ class PlantAdapter(
             days < 0 -> ctx.getString(R.string.status_overdue, -days)
             else -> ctx.getString(R.string.status_in, days)
         }
+
+        val bitmap = plant.photoPath?.let { ImageUtils.decodeScaled(it, 160) }
+        if (bitmap != null) b.itemPhoto.setImageBitmap(bitmap)
+        else b.itemPhoto.setImageResource(android.R.drawable.ic_menu_gallery)
 
         b.root.setOnClickListener { onClick(plant) }
         b.btnWater.setOnClickListener { onWater(plant) }

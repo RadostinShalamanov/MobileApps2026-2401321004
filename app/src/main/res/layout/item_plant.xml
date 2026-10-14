@@ -9,11 +9,19 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/itemPhoto"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:contentDescription="@string/photo_desc"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
